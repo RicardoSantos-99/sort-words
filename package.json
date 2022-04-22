@@ -1,0 +1,8 @@
+{
+  "name": "sort-worlds",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:RicardoSantos-99/sort-worlds.git",
+  "author": "Ricardo Carvalho Santos <ricardo2010carvalho@hotmail.com>",
+  "license": "MIT"
+}
