@@ -2,15 +2,31 @@ const fs = require('fs')
 const path = require('path')
 
 
-const joinPath = folder => fs.readdirSync(path.resolve(__dirname, folder))
+const caracteres = [",",".",":","-",">","'","?","!", "♪", "[","]","--","_",'"', " "]
+const takePath = name => path.resolve(__dirname, name)
+const joinPathDir = path => fs.readdirSync(path)
 const checkIfEndStr = str => str.endsWith('srt')
+const pathFile = filename => path.resolve(__dirname, "legendas", filename)
+const joinPathFile = file => fs.readFileSync(file, "utf8")
+const splitString = str => word => word.split(str)
 
-const allFiles = joinPath("legendas")
+const splitForLine = splitString("\n")
+const pathFolder = takePath("legendas")
+const allFiles = joinPathDir(pathFolder)
 const files = allFiles.filter(checkIfEndStr)
 
-//const texto = files.map(fl => fs.readFileSync(path.resolve(__dirname, "legendas", fl)), "utf8")
+const texto = files.map(fileName => joinPathFile(pathFile(fileName)))
+const array = texto.map(splitForLine).flat()
+const arrayWithOutSpace = array.map(word => word.trim())
+const textWithCaracteres = arrayWithOutSpace.join(",").replace("[0-9]", '')
+console.log("-> ~ textWithCaracteres", textWithCaracteres)
 
 
-const fl = fs.readFileSync(path.resolve(__dirname, "legendas", "legendas_10.srt"), "utf8")
+const charForReplace = caracteres.join("|")
 
-const texto = fl.split("/n")
+
+//const textWithCaracteresReplace = textWithCaracteres.replace(new RegExp(`[${charForReplace}]`, "g"), '')
+//console.log("-> ~ textWithCaracteresReplace", textWithCaracteresReplace)
+
+
+//replace(new RegExp(`[${charForReplace}]`, "g"), '')
