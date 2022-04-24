@@ -10,7 +10,7 @@ const joinPathFile = file => fs.readFileSync(file, "utf8")
 const splitString = str => word => word.split(str)
 const graterThanZero = arr => arr.length > 0
 const removeSpaces = str => str.trim()
-const sortByNum = (a, b) => b.num - a.num
+const sortByNum = (a, b) =>  b.num - a.num
 
 const splitForLine = splitString("\n")
 const pathFolder = takePath("legendas")
@@ -24,10 +24,10 @@ const textWithCaracteres = arrayWithOutSpace.join(",")
 
 const charForReplace = caracteres.join("|")
 
-const textWithCaracteresReplace = textWithCaracteres.replace(new RegExp(`[${charForReplace}]`, "g"), '')
-const txt = textWithCaracteresReplace.replace(/[0-9]/g, '').replace(/\[|]|-|=|,|&|\$/g, ' ')
-const txtInLines = txt.split(" ").join("\n")
-const words = txtInLines.split("\n").filter(graterThanZero)
+const words = textWithCaracteres
+  .replace(new RegExp(`[${charForReplace}]|\[|]|-|=|,|&|\$|[0-9]`, "g"), '')
+  .split(" ")
+  .filter(graterThanZero)
 
 countWords = []
 words.map((word) => {
@@ -41,5 +41,5 @@ words.map((word) => {
   index !== -1 ? countWords[index].num += 1 : countWords.push(wd)
 })
 
-countWords.sort(sortByNum)
+console.log("-> ~ countWords.sort(sortByNum)", countWords.sort(sortByNum))
 
